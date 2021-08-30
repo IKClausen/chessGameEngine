@@ -30,6 +30,7 @@ public class Board {
 		this.blackPieces = calculateActivePieces(this.gameBoard, Alliance.BLACK); 
 		
 		final Collection<Move> whiteStandardLegalMoves = calculateLegalMoves(this.whitePieces); 
+		
 		final Collection<Move> blackStandardLegalMoves = calculateLegalMoves(this.blackPieces); 
 	}
 
