@@ -21,7 +21,7 @@ private final int [] CANDIDATE_MOVE_COORDINATES = {-17, -15, -10, -6, 6, 10, 15,
 	
 	
 	    //Constructor matching super 
-        Knight(final int piecePosition, final Alliance pieceAlliance) {
+        public Knight(final Alliance pieceAlliance, final int piecePosition) {
 		super(piecePosition, pieceAlliance);
 	}
 

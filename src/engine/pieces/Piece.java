@@ -20,7 +20,10 @@ public abstract class Piece {
 	    this.pieceAlliance = pieceAlliance; 
 	    this.isFirstMove = false; 
 	    
+	    }
 	    
+	    public int getPiecePosition() {
+	    	return this.piecePosition; 
 	    }
 	    
 	    public Alliance getPieceAlliance() {
