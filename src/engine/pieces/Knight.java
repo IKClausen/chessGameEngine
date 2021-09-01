@@ -11,6 +11,7 @@ import engine.board.Board;
 import engine.board.BoardUtils;
 import engine.board.Move;
 import engine.board.Tile;
+import engine.pieces.Piece.PieceType;
 
 // https://en.wikipedia.org/wiki/Knight_(chess)
 
@@ -67,6 +68,11 @@ public Collection<Move> calculateLegalMoves(final Board board){
 	
 	        return ImmutableList.copyOf(legalMoves); 
         }
+
+            @Override
+            public String toString() {
+	        return PieceType.KNIGHT.toString();
+            }
    
      // Methods for edge cases where above approach doesn't apply - column exclusions 
             private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {

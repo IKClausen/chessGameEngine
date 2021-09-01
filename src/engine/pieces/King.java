@@ -9,6 +9,7 @@ import engine.board.Board;
 import engine.board.BoardUtils;
 import engine.board.Move;
 import engine.board.Tile;
+import engine.pieces.Piece.PieceType;
 
 public class King extends Piece {
 	
@@ -55,6 +56,11 @@ public class King extends Piece {
 	
 		return null;
 	}
+	
+	   @Override
+	   public String toString() {
+		   return PieceType.KING.toString();
+	   }
 	
 	// Methods for edge cases where above approach doesn't apply - column exclusions 
      private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {

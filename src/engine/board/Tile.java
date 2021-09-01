@@ -49,6 +49,7 @@ import java.util.Collections;
 		  }
 		  
 		
+		  
 
 		// Key methods to check if file is occupied and to retrieve the piece 
 		  public abstract boolean isTileOccupied(); 
@@ -61,6 +62,11 @@ import java.util.Collections;
 			  
 			  private EmptyTile(final int coordinate){
 				  super(coordinate); 
+			  }
+			  
+			  @Override
+			  public String toString() {
+				  return "-"; 
 			  }
 			  
 			  @Override
@@ -82,6 +88,12 @@ import java.util.Collections;
 				  this.pieceOnTile = pieceOnTile;
 			  }
 			  
+			  @Override
+			  public String toString() {
+				  return getPiece().getPieceAlliance().isBlack() ? getPiece().toString().toLowerCase() : 	
+						getPiece().toString(); // black pieces show up as lower case white as upper case 
+				}
+			  
 			  @Override 
 			  public boolean isTileOccupied() {
 				  return true; 
@@ -93,5 +105,6 @@ import java.util.Collections;
 				  return this.pieceOnTile; 
 			  }
 		  }
+	
 	}
 
