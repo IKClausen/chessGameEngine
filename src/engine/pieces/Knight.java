@@ -11,7 +11,6 @@ import engine.board.Board;
 import engine.board.BoardUtils;
 import engine.board.Move;
 import engine.board.Tile;
-import engine.pieces.Piece.PieceType;
 
 // https://en.wikipedia.org/wiki/Knight_(chess)
 

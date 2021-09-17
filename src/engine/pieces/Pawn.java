@@ -10,7 +10,6 @@ import engine.Alliance;
 import engine.board.Board;
 import engine.board.BoardUtils;
 import engine.board.Move;
-import engine.pieces.Piece.PieceType;
 
 public class Pawn extends Piece {
 	

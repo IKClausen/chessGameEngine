@@ -1,12 +1,12 @@
 package engine.board;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import com.google.common.collect.ImmutableMap;
 
 import engine.pieces.Piece;
-
-import java.util.Collections;
 
     
     
@@ -14,7 +14,7 @@ import java.util.Collections;
 	public abstract class Tile {
 	    
 	  
-	  // Declaring variable - protected and final 
+	  // Declaring variable - protected and final - can only be set once at construction time 
 	  protected final int tileCoordinate; 
 	  
 	  private static final Map<Integer, EmptyTile> Empty_Tiles_Cache= createAllPossibleEmptyTiles(); 
