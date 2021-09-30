@@ -27,6 +27,9 @@ public abstract class Player {
 				return (King) piece; 
 			}
 		}
+		// if king can't be found chess board/state is wrong 
+		throw new RuntimeException("NO KING - Board Not Valid"); 
+		
 	}
 	
 	public abstract Collection<Piece> getActivePieces(); 

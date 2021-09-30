@@ -48,15 +48,53 @@ public abstract class Piece {
 	    
 	    public enum PieceType{
 	    	
-	    	PAWN("P"),
-	    	KNIGHT("N"),
-	    	BISHOP("B"),
-	    	ROOK("R"),
-	    	QUEEN("Q"),
-	    	KING("K");
-	    
-	    	
-	    	private String pieceName; 
+	    	PAWN("P"){
+				@Override
+				public boolean isKing() {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			},
+ 
+	    	KNIGHT("N"){
+				@Override
+				public boolean isKing() {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			}, 
+ 
+			BISHOP("B"){
+				@Override
+				public boolean isKing() {
+					// TODO Auto-generated method stub
+					return false;
+				}
+             }, 
+			
+			ROOK("R"){
+				@Override
+				public boolean isKing() {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			}, 	    	
+			QUEEN("Q"){
+				@Override
+				public boolean isKing() {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			}, 	    	
+			KING("K"){
+				@Override
+				public boolean isKing() {
+					// TODO Auto-generated method stub
+					return true;
+				}
+			};     	
+			
+			private String pieceName; 
 	    	
 	    	PieceType(final String pieceName){
 	    		this.pieceName = pieceName;
@@ -65,7 +103,10 @@ public abstract class Piece {
 	    	public String toString() {
 	    		return this.pieceName;
 	    	}
+	    	
+	    	public abstract boolean isKing(); 
+	    		
+	    	}
 	    }
 	    
 
-}
