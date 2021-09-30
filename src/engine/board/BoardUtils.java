@@ -37,6 +37,7 @@ public class BoardUtils {
 			row[rowNumber] = true; 
 			rowNumber++;
 		}while(rowNumber % NUM_TILES_PER_ROW != 0 ); 
+		
 		return row; 
 	}
 	 

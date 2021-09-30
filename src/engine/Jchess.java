@@ -2,6 +2,7 @@ package engine;
 
 import engine.board.Board;
 
+// Driver class - main method 
 public class Jchess {
 	
 	public static void main(String []args) {
@@ -12,3 +13,5 @@ public class Jchess {
 	}
 
 }
+
+
