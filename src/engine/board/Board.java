@@ -17,6 +17,7 @@ import engine.pieces.Piece;
 import engine.pieces.Queen;
 import engine.pieces.Rook;
 import engine.player.BlackPlayer;
+import engine.player.Player;
 import engine.player.WhitePlayer;
 
 public class Board {
@@ -57,6 +58,14 @@ public class Board {
 			
 		}
 		return builder.toString(); 
+	}
+	
+	public Player whitePlayer() {
+		return this.whitePlayer; 
+	} 
+	
+	public Player blackPlayer() {
+		return this.blackPlayer; 
 	}
 	
 	public Collection<Piece> getBlackPieces(){
