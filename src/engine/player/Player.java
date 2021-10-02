@@ -1,6 +1,10 @@
 package engine.player;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
 
 import engine.Alliance;
 import engine.board.Board;
@@ -13,6 +17,7 @@ public abstract class Player {
 	protected final Board board; 
 	protected final King playerKing; 
 	protected final Collection<Move> legalMoves; 
+	private final boolean isInCheck; 
 	
 	Player(final Board board, 
 		   final Collection<Move> legalMoves, 
@@ -20,6 +25,17 @@ public abstract class Player {
 		this.board = board; 
 		this.playerKing = establishKing(); 
 		this.legalMoves = legalMoves; 
+		this.isInCheck = !Player.calculateAttacksOnTile(this.playerKing.getPiecePosition(), opponentMoves).isEmpty(); // Pass kings positions and enemy moves - if there is an overlap (if list not empty) King is under attack.   
+	}
+
+	private static Collection<Move> calculateAttacksOnTile(int piecePosition, Collection<Move> moves){
+		final List<Move> attackMoves = new ArrayList<>(); 
+		for(final Move move : moves) {
+			if(piecePosition == move.getDestinationCoordinate()) {
+				attackMoves.add(move); 
+			}
+		}
+		return ImmutableList.copyOf(attackMoves); 
 	}
 
 	private King establishKing() {
@@ -33,15 +49,29 @@ public abstract class Player {
 		
 	}
 	// implementing helper routines - and polymorphic abstract methods 
-	// TODO implement logic in methods!!! 
 	public boolean isMoveLegal(final Move move) {
 		return this.legalMoves.contains(move); 
 	}
 	
 	public boolean isInCheck() {
-		return false; 
+		return this.isInCheck; 
 	}
 	
+	// TODO implement logic in methods!!! 
+	public boolean isInCheckMate() {
+		return this.isInCheck && !hasEscapeMoves(); 
+	}
+	
+	protected boolean hasEscapeMoves() {
+		for(final Move move : this.legalMoves) {
+			final MoveTransition transition = makeMove(move); 
+			if(transition.getMoveStatus().isDone()) {
+				return true; 
+			}
+		}
+		return false;
+	}
+
 	public boolean isInStaleMate() {
 		return false; 
 	}

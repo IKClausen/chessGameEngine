@@ -33,7 +33,7 @@ public class BlackPlayer extends Player {
 	@Override
 	public Player getOpponent() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.board.whitePlayer(); 
 	}
 
 }

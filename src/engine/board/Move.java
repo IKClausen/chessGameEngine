@@ -14,8 +14,14 @@ public abstract class Move {
     	 final int destinationCoordinate){
 	     this.board = board; 
 	     this.movedPiece = movedPiece; 
-	     this.destinationCoordinate = destinationCoordinate;}
-    
+	     this.destinationCoordinate = destinationCoordinate;
+}   
+ 
+ // Move has a piece - tile coordinate and destination it gets moves to  
+public int getDestinationCoordinate() {
+	return this.destinationCoordinate; 
+			
+}
     
   public static final class MajorMove extends Move {
 
@@ -37,8 +43,9 @@ public abstract class Move {
 		
 		  super(board, movedPiece, destinationCoordinate);
 		  this.attackedPiece = attackedPiece; 
-	     }
-	   }
-
-
+	} 
+	
+  }
+  
 }
+
