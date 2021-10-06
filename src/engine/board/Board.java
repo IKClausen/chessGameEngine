@@ -30,6 +30,7 @@ public class Board {
 	// Keeping track of player classes on board
 	private final WhitePlayer whitePlayer; 
 	private final BlackPlayer blackPlayer; 
+	private final Player currentPlayer; 
 	
 
 	public Board(Builder builder) {
@@ -43,6 +44,7 @@ public class Board {
 		
 		this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves); 
 		this.blackPlayer = new BlackPlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves); 
+		this.currentPlayer = null; 
 	}
 
 	@Override
@@ -66,6 +68,10 @@ public class Board {
 	
 	public Player blackPlayer() {
 		return this.blackPlayer; 
+	}
+	
+	public Player currentPlayer() {
+		return this.currentPlayer; 
 	}
 	
 	public Collection<Piece> getBlackPieces(){

@@ -27,7 +27,16 @@ public abstract class Player {
 		this.legalMoves = legalMoves; 
 		this.isInCheck = !Player.calculateAttacksOnTile(this.playerKing.getPiecePosition(), opponentMoves).isEmpty(); // Pass kings positions and enemy moves - if there is an overlap (if list not empty) King is under attack.   
 	}
+	
+	public King getPlayerKing() {
+		return this.playerKing; 
+	}
+	
+	public Collection<Move>getLegalMoves(){
+		return this.legalMoves; 
+	}
 
+// Pass kings current tile location on board + enemies moves go through each one and check if any enemy move destination overlaps with King = attack on king 
 	private static Collection<Move> calculateAttacksOnTile(int piecePosition, Collection<Move> moves){
 		final List<Move> attackMoves = new ArrayList<>(); 
 		for(final Move move : moves) {
@@ -57,11 +66,15 @@ public abstract class Player {
 		return this.isInCheck; 
 	}
 	
-	// TODO implement logic in methods!!! 
+	
 	public boolean isInCheckMate() {
 		return this.isInCheck && !hasEscapeMoves(); 
 	}
-	
+
+	public boolean isInStaleMate() {
+		return !this.isInCheck && !hasEscapeMoves(); 
+	}
+	// Check players legal moves and implement them in a separate "abstract" board - and see if any moves is successful return true otherwise false.   
 	protected boolean hasEscapeMoves() {
 		for(final Move move : this.legalMoves) {
 			final MoveTransition transition = makeMove(move); 
@@ -72,16 +85,28 @@ public abstract class Player {
 		return false;
 	}
 
-	public boolean isInStaleMate() {
-		return false; 
-	}
 	
+	// TODO implement logic in methods!!! 
 	public boolean isCastled() {
 		return false; 
 	}
 	
 	public MoveTransition makeMove(final Move move) {
-		return null; 
+		// If move is illegal - then the move transition returns the same board as no move is made 
+		if(!isMoveLegal(move)) {
+			return new MoveTransition(this.board, move, MoveStatus.ILLEGAL_MOVE);
+		}
+		// Use move to polymorphically execute the move and return a new board we transition to 
+		final Board transitionBoard = move.execute(); 
+		// Then we check if there are any attacks on king once a move is made 
+		final Collection<Move> kingAttacks = Player.calculateAttacksOnTile(transitionBoard.currentPlayer().getOpponent().getPlayerKing().getPiecePosition(),
+				transitionBoard.currentPlayer().getLegalMoves()); 
+		// Return board and leave player in check 
+		if(!kingAttacks.isEmpty()) {
+			return new MoveTransition(this.board, move, MoveStatus.LEAVES_PLAYER_IN_CHECK); 
+		}		
+		// Otherwise return the move transition board in a new move transition 
+		return new MoveTransition(transitionBoard, move, MoveStatus.DONE); 
 	}
 	
 	public abstract Collection<Piece> getActivePieces(); 

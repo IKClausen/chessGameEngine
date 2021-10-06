@@ -17,19 +17,29 @@ public abstract class Move {
 	     this.destinationCoordinate = destinationCoordinate;
 }   
  
- // Move has a piece - tile coordinate and destination it gets moves to  
+ // Move has a piece + tile coordinate and destination it gets moved to  
 public int getDestinationCoordinate() {
 	return this.destinationCoordinate; 
 			
 }
-    
+
+// Board is immuatable - board builder creates new board no mutation of boards to execute moves. 
+ public abstract Board execute();   
+ 
+ 
   public static final class MajorMove extends Move {
 
 	public MajorMove(final Board board, 
 			  final Piece movedPiece,
 			  final  int destinationCoordinate) {
 		super(board, movedPiece, destinationCoordinate);
-	   }  
+	   }
+
+	@Override
+	public Board execute() {
+		// TODO Auto-generated method stub
+		return null;
+	}  
       }
   
   public static final class AttackMove extends Move {
@@ -43,6 +53,12 @@ public int getDestinationCoordinate() {
 		
 		  super(board, movedPiece, destinationCoordinate);
 		  this.attackedPiece = attackedPiece; 
+	}
+
+	@Override
+	public Board execute() {
+		// TODO Auto-generated method stub
+		return null;
 	} 
 	
   }
