@@ -1,7 +1,11 @@
 package engine;
 
+import engine.player.BlackPlayer;
+import engine.player.Player;
+import engine.player.WhitePlayer;
+
 public enum Alliance {
-       WHITE 
+ WHITE 
  {@Override
   public int getDirection() {
    // TODO Auto-generated method stub
@@ -18,6 +22,13 @@ public boolean isWhite() {
 public boolean isBlack() {
 	// TODO Auto-generated method stub
 	return false;
+}
+
+@Override
+public Player choosePlayer(final WhitePlayer whitePlayer,
+		                   final BlackPlayer blackPlayer) {
+
+	return whitePlayer;
 }
  } ,       
        
@@ -37,8 +48,16 @@ public boolean isBlack() {
 	public boolean isBlack() {
 		return true;
 	}
+
+	@Override
+	public Player choosePlayer(final WhitePlayer whitePlayer, 
+			                   final BlackPlayer blackPlayer) {
+		// TODO Auto-generated method stub
+		return blackPlayer;
+	}
 };
     public abstract int getDirection(); 
     public abstract boolean isWhite(); 
-    public abstract boolean isBlack(); 
+    public abstract boolean isBlack();
+	public abstract Player choosePlayer(WhitePlayer whitePlayer, BlackPlayer blackPlayer); 
 } 
