@@ -64,12 +64,17 @@ public class Bishop extends Piece {
 		         return ImmutableList.copyOf(legalMoves); 
 	   }
 	
+	   //Creates new identical piece in new piece position 
+	   @Override
+	   public Bishop movePiece(Move move) {
+		// TODO Auto-generated method stub
+		   return new Bishop(move.getMovedPiece().getPieceAlliance(), move.getDestinationCoordinate());
+	   }
+	   
 	   @Override
 	   public String toString() {
 		   return PieceType.BISHOP.toString();
 	   }
-         
-	
 	
 	   private static boolean isFirstColumnExclusion(final int currentPosition, final int candidateOffset) {
         	  return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -9 || candidateOffset == 7); 
@@ -78,8 +83,6 @@ public class Bishop extends Piece {
 	   private static boolean isEighthColumnExclusion(final int currentPosition, final int candidateOffset) {
      	  return BoardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == -7 || candidateOffset == 9); 
       }
-
-
 
 
 }

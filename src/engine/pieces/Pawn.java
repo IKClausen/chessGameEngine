@@ -70,6 +70,13 @@ public class Pawn extends Piece {
 		return ImmutableList.copyOf(legalMoves);
 	}
 	
+	   //Creates new identical piece in new piece position 
+	   @Override
+	   public Pawn movePiece(Move move) {
+		// TODO Auto-generated method stub
+		   return new Pawn(move.getMovedPiece().getPieceAlliance(), move.getDestinationCoordinate());
+	   }
+	
 	   @Override
 	   public String toString() {
 		   return PieceType.PAWN.toString();

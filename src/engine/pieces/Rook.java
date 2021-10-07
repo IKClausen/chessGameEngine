@@ -62,6 +62,12 @@ public class Rook extends Piece{
 	            } 
 		         return ImmutableList.copyOf(legalMoves); 
 	   }
+	   //Creates new identical piece in new piece position 
+	   @Override
+	   public Rook movePiece(Move move) {
+		// TODO Auto-generated method stub
+		   return new Rook(move.getMovedPiece().getPieceAlliance(), move.getDestinationCoordinate());
+	   }
          
 	   @Override
 	   public String toString() {

@@ -2,7 +2,7 @@ package engine.board;
 
 import engine.board.Board.Builder;
 import engine.pieces.Piece;
-
+//Creates and returns new boards based on executing a move on a piece 
 public abstract class Move {
 	
 	// Constructor that keeps track of board 
@@ -22,6 +22,10 @@ public abstract class Move {
 public int getDestinationCoordinate() {
 	return this.destinationCoordinate; 
 			
+}
+
+public Piece getMovedPiece() {
+	return this.movedPiece; 
 }
 
 // Board is immutable - board builder creates new board no mutation of boards to execute moves. 
@@ -52,7 +56,7 @@ public int getDestinationCoordinate() {
 			 builder.setPiece(piece);
 		 }
 		 // move and set the moved piece - switch the incoming move maker 
-		 builder.setPiece(null); 
+		 builder.setPiece(this.movedPiece.movePiece(this)); 
 		 builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance()); 
 		 return builder.build();
 	}  

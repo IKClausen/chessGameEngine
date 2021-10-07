@@ -55,6 +55,12 @@ public class King extends Piece {
 	
 		return null;
 	}
+	   //Creates new identical piece in new piece position 
+	   @Override
+	   public King movePiece(Move move) {
+		// TODO Auto-generated method stub
+		   return new King(move.getMovedPiece().getPieceAlliance(), move.getDestinationCoordinate());
+	   }
 	
 	   @Override
 	   public String toString() {

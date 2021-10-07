@@ -68,6 +68,13 @@ public Collection<Move> calculateLegalMoves(final Board board){
 	        return ImmutableList.copyOf(legalMoves); 
         }
 
+           //Creates new identical piece in new piece position 
+           @Override
+           public Knight movePiece(Move move) {
+	       // TODO Auto-generated method stub
+	       return new Knight(move.getMovedPiece().getPieceAlliance(), move.getDestinationCoordinate());
+           }
+
             @Override
             public String toString() {
 	        return PieceType.KNIGHT.toString();
@@ -89,7 +96,6 @@ public Collection<Move> calculateLegalMoves(final Board board){
             	return BoardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == -15 || candidateOffset == 6 || 
             			candidateOffset == 10 || candidateOffset == 17); 
             }
-             
-            
+                 
 
 }

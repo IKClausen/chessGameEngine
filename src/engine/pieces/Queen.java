@@ -62,6 +62,13 @@ public class Queen extends Piece {
 	            } 
 		         return ImmutableList.copyOf(legalMoves); 
 	   }
+	
+	   //Creates new identical piece in new piece position 
+	   @Override
+	   public Queen movePiece(Move move) {
+		// TODO Auto-generated method stub
+		   return new Queen(move.getMovedPiece().getPieceAlliance(), move.getDestinationCoordinate());
+	   }
          
 	   @Override
 	   public String toString() {
