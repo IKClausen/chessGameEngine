@@ -10,6 +10,8 @@ public abstract class Move {
 	final Piece movedPiece; 
 	final int destinationCoordinate; 
 	
+	public static final Move NULL_MOVE = new NullMove();
+	
  private Move(final Board board, 
     	 final Piece movedPiece,
     	 final int destinationCoordinate){
@@ -18,6 +20,9 @@ public abstract class Move {
 	     this.destinationCoordinate = destinationCoordinate;
 }   
  
+public int getCurrentCoordinate() {
+	return this.getMovedPiece().getPiecePosition();
+}
  // Move has a piece + tile coordinate and destination it gets moved to  
 public int getDestinationCoordinate() {
 	return this.destinationCoordinate; 
@@ -148,12 +153,32 @@ public Piece getMovedPiece() {
 
   public static final class nullMove extends Move {
 
-		public nullMove(final Board board, 
-				        final Piece movedPiece,
-				        final  int destinationCoordinate) {
-			super(board, movedPiece, destinationCoordinate);
+		public nullMove() {
+			super(null,null,-1);
 		   }
+		@Override 
+		public Board execute() {
+			throw new RuntimeException("Cannot execute null move!");
+			
+		}
 	   } 
-    
+   //Factory class with convenience method 
+  public static class MoveFactory{
+	  private MoveFactory() {
+		  throw new RuntimeException("Not instantiable!"); 
+	  }
+	  public static Move createMove(final Board board, 
+			                        final int currentCoordinate, 
+			                        final int destinationCoordinat) {
+		  for(final Move move : board.getAlllegalMoves()) {
+			  if(move.getCurrentCoordinate()== currentCoordinate &&
+			     move.getDestinationCoordinate()== destinationCoordinate) {
+				  return move; 
+			  }
+		  }
+		  return NULL_MOVE;
+	  }
+   }
+  
 }
 
