@@ -28,19 +28,6 @@ public Piece getMovedPiece() {
 	return this.movedPiece; 
 }
 
-// Board is immutable - board builder creates new board no mutation of boards to execute moves. 
- public abstract Board execute();   
- 
- 
-  public static final class MajorMove extends Move {
-
-	public MajorMove(final Board board, 
-			  final Piece movedPiece,
-			  final  int destinationCoordinate) {
-		super(board, movedPiece, destinationCoordinate);
-	   }
-
-	@Override
 	public Board execute() {
 		//Board builder to create new board traverse incoming boards current player pieces and for each piece that isn't the moved piece stay the same
 		final Board.Builder builder = new Builder(); 
@@ -60,9 +47,20 @@ public Piece getMovedPiece() {
 		 builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance()); 
 		 return builder.build();
 	}  
+/*Board is immutable - board builder creates new board no mutation of boards to execute moves. 
+ public abstract Board execute(); */   
+ 
+ 
+  public static final class MajorMove extends Move {
+
+	public MajorMove(final Board board, 
+			  final Piece movedPiece,
+			  final  int destinationCoordinate) {
+		super(board, movedPiece, destinationCoordinate);
+	   }
  }
   
-  public static final class AttackMove extends Move {
+  public static class AttackMove extends Move {
 	  
 	public final Piece attackedPiece; 
 
@@ -82,5 +80,80 @@ public Piece getMovedPiece() {
 	
   }
   
+  public static final class PawnMove extends Move {
+
+	public PawnMove(final Board board, 
+			        final Piece movedPiece,
+			        final  int destinationCoordinate) {
+		super(board, movedPiece, destinationCoordinate);
+	   }
+   }
+  public static class PawnAttackMove extends AttackMove {
+
+	public PawnAttackMove(final Board board, 
+			              final Piece movedPiece,
+			              final  int destinationCoordinate,
+			              final Piece attackedPiece) {
+		
+		super(board, movedPiece, destinationCoordinate, attackedPiece);
+	   }
+   }
+  
+  public static final class PawnEnPassantAttackMove extends PawnAttackMove {
+
+	public PawnEnPassantAttackMove(final Board board, 
+			                       final Piece movedPiece,
+			                       final  int destinationCoordinate,
+			                       final Piece attackedPiece) {
+		
+		super(board, movedPiece, destinationCoordinate, attackedPiece);
+	   }
+   }
+  public static final class PawnJump extends Move {
+
+	public PawnJump(final Board board, 
+			        final Piece movedPiece,
+			        final  int destinationCoordinate) {
+		
+		super(board, movedPiece, destinationCoordinate);
+	   }
+   }
+  
+  static abstract class caslteMove extends Move {
+
+	public caslteMove(final Board board, 
+			          final Piece movedPiece,
+			          final  int destinationCoordinate) {
+		super(board, movedPiece, destinationCoordinate);
+	   }
+   }
+  
+  public static final class KingSideCastleMove extends Move {
+
+	public KingSideCastleMove(final Board board, 
+			                  final Piece movedPiece,
+			                  final  int destinationCoordinate) {
+		super(board, movedPiece, destinationCoordinate);
+	   }
+   } 
+  
+  public static final class QueenSideCastleMove extends Move {
+
+		public QueenSideCastleMove(final Board board, 
+				                   final Piece movedPiece,
+				                   final  int destinationCoordinate) {
+			super(board, movedPiece, destinationCoordinate);
+		   }
+	   } 
+
+  public static final class nullMove extends Move {
+
+		public nullMove(final Board board, 
+				        final Piece movedPiece,
+				        final  int destinationCoordinate) {
+			super(board, movedPiece, destinationCoordinate);
+		   }
+	   } 
+    
 }
 
