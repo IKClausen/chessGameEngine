@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 
 import engine.Alliance;
 import engine.pieces.Bishop;
@@ -169,6 +170,10 @@ public class Board {
 		
 		return builder.build();
 		
+	}
+	// Iterable using Guava library 
+	public Iterable<Move> getAlllegalMoves() {
+		return Iterables.unmodifiableIterable(Iterables.concat(this.whitePlayer.getLegalMoves(), this.blackPlayer.getLegalMoves()));
 	}
 	
 	public static class Builder {
