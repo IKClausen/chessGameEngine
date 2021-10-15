@@ -1,4 +1,4 @@
-package engine.pieces;
+ package engine.pieces;
 
 import java.util.Collection;
 
@@ -82,11 +82,23 @@ public abstract class Piece {
 					// TODO Auto-generated method stub
 					return false;
 				}
+
+				@Override
+				public boolean isRook() {
+					// TODO Auto-generated method stub
+					return false;
+				}
 			},
  
 	    	KNIGHT("N"){
 				@Override
 				public boolean isKing() {
+					// TODO Auto-generated method stub
+					return false;
+				}
+
+				@Override
+				public boolean isRook() {
 					// TODO Auto-generated method stub
 					return false;
 				}
@@ -98,6 +110,12 @@ public abstract class Piece {
 					// TODO Auto-generated method stub
 					return false;
 				}
+
+				@Override
+				public boolean isRook() {
+					// TODO Auto-generated method stub
+					return false;
+				}
              }, 
 			
 			ROOK("R"){
@@ -106,19 +124,33 @@ public abstract class Piece {
 					// TODO Auto-generated method stub
 					return false;
 				}
+
+				@Override
+				public boolean isRook() {
+					// TODO Auto-generated method stub
+					return true;
+				}
 			}, 	    	
 			QUEEN("Q"){
 				@Override
 				public boolean isKing() {
-					// TODO Auto-generated method stub
+					return false;
+				}
+
+				@Override
+				public boolean isRook() {
 					return false;
 				}
 			}, 	    	
 			KING("K"){
 				@Override
 				public boolean isKing() {
-					// TODO Auto-generated method stub
 					return true;
+				}
+
+				@Override
+				public boolean isRook() {
+					return false;
 				}
 			};     	
 			
@@ -133,6 +165,8 @@ public abstract class Piece {
 	    	}
 	    	
 	    	public abstract boolean isKing(); 
+	    	
+	    	public abstract boolean isRook(); 
 	    		
 	    	}
 	    }

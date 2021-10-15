@@ -3,6 +3,7 @@ package engine.board;
 import engine.board.Board.Builder;
 import engine.pieces.Pawn;
 import engine.pieces.Piece;
+import engine.pieces.Rook;
 //Creates and returns new boards based on executing a move on a piece 
 public abstract class Move {
 	
@@ -203,32 +204,86 @@ public Piece getAttackedPiece() {
 	
    }
   
-  static abstract class caslteMove extends Move {
-
-	public caslteMove(final Board board, 
+  static abstract class CastleMove extends Move {
+    
+	protected final Rook castleRook; 
+	protected final int castleRookStart; 
+	protected final int castleRookDestination; 
+	
+	public CastleMove(final Board board, 
 			          final Piece movedPiece,
-			          final  int destinationCoordinate) {
+			          final  int destinationCoordinate,
+			          final Rook castleRook,
+			          final int castleRookStart, 
+			          final int castleRookDestination) {
 		super(board, movedPiece, destinationCoordinate);
+		this.castleRook = castleRook; 
+		this.castleRookStart = castleRookStart; 
+		this.castleRookDestination = castleRookDestination; 
+		
 	   }
+	
+	public Rook getCastleRook() {
+		return this.castleRook; 
+	}
+	
+	public boolean isCastlingMove() {
+		return true; 
+	}
+	
+	@Override 
+	public Board execute() {
+			final Builder builder = new Builder(); 
+			for(final Piece piece : this.board.currentPlayer().getActivePieces()) {
+				if(!this.movedPiece.equals(piece) && !this.castleRook.equals(piece)) {
+					builder.setPiece(piece); 
+				}
+			}
+			for(final Piece piece : this.board.currentPlayer().getOpponent().getActivePieces()) {
+				builder.setPiece(piece); 
+	    }       // moving King and manually creating new Rook that sits on castle side 
+			    builder.setPiece(this.movedPiece.movePiece(this));
+			    // Fix this: Look into first move on normal pieces  
+			    builder.setPiece(new Rook(this.castleRook.getPieceAlliance(), this.castleRookDestination)); 
+			    builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance());
+			    return builder.build();
+	 }
    }
   
-  public static final class KingSideCastleMove extends Move {
+  public static final class KingSideCastleMove extends CastleMove {
 
 	public KingSideCastleMove(final Board board, 
 			                  final Piece movedPiece,
-			                  final  int destinationCoordinate) {
-		super(board, movedPiece, destinationCoordinate);
+			                  final  int destinationCoordinate,
+			                  final Rook castleRook,
+					          final int castleRookStart, 
+					          final int castleRookDestination) {
+		super(board, movedPiece, destinationCoordinate, castleRook, castleRookStart, castleRookDestination);
 	   }
+	// pgn aka portable game notation: convention for kingside castle  
+	@Override
+	public String toString() {
+		return "o-o"; 
+	} 
    } 
   
-  public static final class QueenSideCastleMove extends Move {
+  public static final class QueenSideCastleMove extends CastleMove {
 
 		public QueenSideCastleMove(final Board board, 
 				                   final Piece movedPiece,
-				                   final  int destinationCoordinate) {
-			super(board, movedPiece, destinationCoordinate);
+				                   final  int destinationCoordinate,
+				                   final Rook castleRook,
+							       final int castleRookStart, 
+							       final int castleRookDestination) {
+			super(board, movedPiece, destinationCoordinate, castleRook, castleRookStart, castleRookDestination);
 		   }
-	   } 
+        //pgn aka portable game notation convention for queen side castle
+		@Override
+		public String toString() {
+			return "o-o-o"; 
+		} 
+		
+	 } 
 
   public static final class NullMove extends Move {
 
