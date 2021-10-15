@@ -1,6 +1,7 @@
 package engine.board;
 
 import engine.board.Board.Builder;
+import engine.pieces.Pawn;
 import engine.pieces.Piece;
 //Creates and returns new boards based on executing a move on a piece 
 public abstract class Move {
@@ -182,6 +183,24 @@ public Piece getAttackedPiece() {
 		
 		super(board, movedPiece, destinationCoordinate);
 	   }
+	@Override
+	public Board execute() {
+		final Builder builder = new Builder(); 
+		for(final Piece piece : this.board.currentPlayer().getActivePieces()) {
+			if(!this.movedPiece.equals(piece)) {
+				builder.setPiece(piece); 
+			}
+		}
+		for(final Piece piece : this.board.currentPlayer().getOpponent().getActivePieces()) {
+			builder.setPiece(piece); 
+		}
+		final Pawn movedPawn = (Pawn)this.movedPiece.movePiece(this); 
+		   builder.setPiece(movedPiece); 
+		   builder.setEnPassantPawn(movedPawn); //Checks if last move was a Pawn jump and if an enPassant attack is possible 
+		   builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance());
+		   return builder.build(); 
+	 }
+	
    }
   
   static abstract class caslteMove extends Move {

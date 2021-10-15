@@ -180,7 +180,8 @@ public class Board {
 		
 		// Mapping tile ID to given piece on the tile ID 
 		Map<Integer, Piece> boardConfig; 
-		Alliance nextMoveMaker; 
+		Alliance nextMoveMaker;
+		Pawn enPassantPawn; 
 		
 		// exposing builder as public 
 		public Builder() {
@@ -203,6 +204,9 @@ public class Board {
 		public Board build(){
 			return new Board(this); 
 			
+		}
+		public void setEnPassantPawn(Pawn enPassantPawn) {
+			this.enPassantPawn = enPassantPawn; 
 		}
 	}
 
