@@ -1,6 +1,7 @@
 package engine;
 
 import engine.board.Board;
+import gui.Table;
 
 // Driver class - main method 
 public class Jchess {
@@ -10,6 +11,8 @@ public class Jchess {
 		Board board = Board.createStandardBoard(); 
 		
 		System.out.println(board);
+		
+		Table table = new Table(); 
 	}
 
 }
