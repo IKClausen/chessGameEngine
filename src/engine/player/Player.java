@@ -25,7 +25,7 @@ public abstract class Player {
 		   final Collection<Move> opponentMoves){
 		this.board = board; 
 		this.playerKing = establishKing(); 
-		//Using Guava - concatenate to the end of the collection King castles 
+		//Using Guava - concatenate to the end of the collection King castles - To do a castle you also need to know opponents prior moves(part of chess rule). 
 		this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, calculateKingCastles(legalMoves, opponentMoves)));  
 		this.isInCheck = !Player.calculateAttacksOnTile(this.playerKing.getPiecePosition(), opponentMoves).isEmpty(); // Pass kings positions and enemy moves - if there is an overlap (if list not empty) King is under attack.   
 	}
