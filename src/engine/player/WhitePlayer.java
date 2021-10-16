@@ -9,8 +9,11 @@ import com.google.common.collect.ImmutableList;
 import engine.Alliance;
 import engine.board.Board;
 import engine.board.Move;
+import engine.board.Move.KingSideCastleMove;
+import engine.board.Move.QueenSideCastleMove;
 import engine.board.Tile;
 import engine.pieces.Piece;
+import engine.pieces.Rook;
 
 public class WhitePlayer extends Player {
 
@@ -40,7 +43,7 @@ public class WhitePlayer extends Player {
 	}
 	
 	@Override
-	protected Collection<Move> calculateKingCastles(Collection<Move> playerLegals, Collection<Move> opponentsLegals) {
+	protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegals,final Collection<Move> opponentsLegals) {
 		final List<Move> kingCastles = new ArrayList<>(); 
 		//Calculating White Kings king side castle (E1 to G1)    
 		   if(this.playerKing.isFirstMove() && !this.isInCheck()) {
@@ -50,9 +53,12 @@ public class WhitePlayer extends Player {
 				     if(Player.calculateAttacksOnTile(61, opponentsLegals).isEmpty() &&
 				        Player.calculateAttacksOnTile(62, opponentsLegals).isEmpty() &&
 				        rookTile.getPiece().getPieceType().isRook()){
-				    	 
-				    	 //TODO ADD CASTLE MOVES!
-					 kingCastles.add(null);  
+					 kingCastles.add(new KingSideCastleMove(this.board, 
+							                                     this.playerKing, 
+							                                     62, // destination coordinate of King 						          
+							                                     (Rook)rookTile.getPiece(), 
+							                                     rookTile.getTileCoordinate(), 
+							                                     61)); //destination coordinate of Rook 
 				     }
 				 }	
 			}
@@ -63,12 +69,15 @@ public class WhitePlayer extends Player {
 			  final Tile rookTile = this.board.getTile(56); 
 			  if(rookTile.isTileOccupied() && rookTile.getPiece().isFirstMove()) {
 				  //TODO ADD CASTLE MOVES! 
-				  kingCastles.add(null); 
+				  kingCastles.add(new QueenSideCastleMove(this.board, 
+						                                       this.playerKing, 58, 
+						                                       (Rook)rookTile.getPiece(), 
+						                                       rookTile.getTileCoordinate(), 
+						                                       59)); 
 			  }
-			}
+		   }
 		}
 		
 		return ImmutableList.copyOf(kingCastles);
 	}
-
 }

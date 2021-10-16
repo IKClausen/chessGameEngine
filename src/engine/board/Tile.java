@@ -54,6 +54,9 @@ import engine.pieces.Piece;
 		// Key methods to check if file is occupied and to retrieve the piece 
 		  public abstract boolean isTileOccupied(); 
 		  public abstract Piece getPiece(); 
+		  public int getTileCoordinate() {
+			  return this.tileCoordinate; 
+		  }
 		  
 		  
 	      // Subclasses that implement behaviors  

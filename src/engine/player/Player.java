@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 
 import engine.Alliance;
 import engine.board.Board;
@@ -24,7 +25,8 @@ public abstract class Player {
 		   final Collection<Move> opponentMoves){
 		this.board = board; 
 		this.playerKing = establishKing(); 
-		this.legalMoves = legalMoves; 
+		//Using Guava - concatenate to the end of the collection King castles 
+		this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves, calculateKingCastles(legalMoves, opponentMoves)));  
 		this.isInCheck = !Player.calculateAttacksOnTile(this.playerKing.getPiecePosition(), opponentMoves).isEmpty(); // Pass kings positions and enemy moves - if there is an overlap (if list not empty) King is under attack.   
 	}
 	
