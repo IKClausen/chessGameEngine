@@ -52,6 +52,16 @@ public class Table {
 			}
 		}); 
 		fileMenu.add(openPGN); 
+		
+		final JMenuItem exitMenuItem = new JMenuItem("Exit"); 
+		exitMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+				
+			}
+		}); 
+		fileMenu.add(exitMenuItem); 
 		return fileMenu; 
 	}
 	// 8x8 Board panel class that adds 64 tiles to list - each til is also added to board panel extends from Jpanel 
@@ -70,6 +80,7 @@ public class Table {
 			validate(); 
 		}
 	}
+	
 	// Maps to tile in chess game - visual component 
 	private class TilePanel extends JPanel {
 		// tile coordinate 
