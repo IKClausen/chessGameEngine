@@ -4,11 +4,16 @@ package gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import engine.board.Board;
 import engine.board.BoardUtils;
 
 public class Table {
@@ -94,19 +99,37 @@ public class Table {
 			assignTileColor();
 			validate();
 		}
+		
+		private void assignTilePieceIcon(final Board board) {
+			this.removeAll();
+			if(board.getTile(this.tileId).isTileOccupied()) {
+				String pieceIconPath = "";
+				try {
+					final BufferedImage image = 
+						  ImageIO.read(new File(pieceIconPath + board.getTile(this.tileId).getPiece().getPieceAlliance().toString().substring(0, 1)+
+						  board.getTile(this.tileId).getPiece().toString() + ".gif"));
+					add(new JLabel(new ImageIcon(image)));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				
+			}
+		}
 		//If you are on first, third, fifth or seventh row check if even = light if not even color it dark based flips for even rows
 		private void assignTileColor() {
-			if(BoardUtils.FIFTH_ROW[this.tileId] ||
-			   BoardUtils.THIRD_ROW[this.tileId] ||
-			   BoardUtils.FIFTH_ROW[this.tileId] ||
-			   BoardUtils.SEVENTH_ROW[this.tileId]) {
+			if(BoardUtils.FOURTH_RANK[this.tileId] ||
+			   BoardUtils.SIXTH_RANK[this.tileId] ||
+			   BoardUtils.FOURTH_RANK[this.tileId] ||
+			   BoardUtils.SECOND_RANK[this.tileId]) {
 			setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor); 
-		} else if(BoardUtils.SECOND_ROW[this.tileId] ||
-			   BoardUtils.FIFTH_ROW[this.tileId] ||
-			   BoardUtils.SIXTH_ROW[this.tileId] ||
-			   BoardUtils.EIGTH_ROW[this.tileId]) {
+		} else if(BoardUtils.SEVENTH_RANK[this.tileId] ||
+			   BoardUtils.FOURTH_RANK[this.tileId] ||
+			   BoardUtils.THIRD_RANK[this.tileId] ||
+			   BoardUtils.FIRST_RANK[this.tileId]) {
             setBackground(this.tileId % 2 != 0 ? lightTileColor : darkTileColor); 
 		}
+			
      }
 	
   }
