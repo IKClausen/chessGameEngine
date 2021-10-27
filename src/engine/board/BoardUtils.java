@@ -54,7 +54,7 @@ public class BoardUtils {
 	public static boolean isValidTileCoordinate(final int coordinate) {
 	     return coordinate >=0 && coordinate < NUM_TILES;
     }
-	
+	// Returns Coordinate based on PGN notations
 	public static int getCoordinateAtPosition(final String position) {
 		return POSITION_TO_COORDINATE.get(position); 
 	}
