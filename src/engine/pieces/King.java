@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+
 import engine.Alliance;
 import engine.board.Board;
 import engine.board.BoardUtils;
@@ -14,9 +16,14 @@ public class King extends Piece {
 	
 	private final static int[] CANDIDATE_MOVE_COORDINATE = {-9,-8,-7,-1,1,7,8,9}; 
 
-	public King(final Alliance pieceAlliance, int piecePosition) {
-		super(PieceType.KING, piecePosition, pieceAlliance);
-		// TODO Auto-generated constructor stub
+	public King(final Alliance pieceAlliance, final int piecePosition) {
+		super(PieceType.KING, piecePosition, pieceAlliance, true);
+
+	}
+	
+	public King(final Alliance pieceAlliance, final int piecePosition, final boolean isFirstMove) {
+		super(PieceType.KING, piecePosition, pieceAlliance, isFirstMove);
+
 	}
 
 	@Override
@@ -53,7 +60,7 @@ public class King extends Piece {
 			}
 		} 
 	
-		return null;
+		return ImmutableList.copyOf(legalMoves);
 	}
 	   //Creates new identical piece in new piece position 
 	   @Override

@@ -1,5 +1,6 @@
 package engine.board;
 
+import java.util.Map;
 
 // utility class for methods that are static 
 public class BoardUtils {
@@ -16,7 +17,10 @@ public class BoardUtils {
 	public static final boolean[] FOURTH_RANK = initRow(32); 
 	public static final boolean[] THIRD_RANK = initRow(40); 
 	public static final boolean[] SECOND_RANK = initRow(48); 
-	public static final boolean[] FIRST_RANK = initRow(56); 
+	public static final boolean[] FIRST_RANK = initRow(56);
+	
+	public static final String[] ALGEBREIC_NOTATION = initializeAlgebreicNotation();
+	public static final Map<String, Integer> POSITION_TO_COORDINATE = initializePositionToCoordinateMap();
 	
 	public static final int NUM_TILES = 64; 
 	public static final int NUM_TILES_PER_ROW = 8; 
@@ -50,4 +54,13 @@ public class BoardUtils {
 	public static boolean isValidTileCoordinate(final int coordinate) {
 	     return coordinate >=0 && coordinate < NUM_TILES;
     }
+	
+	public static int getCoordinateAtPosition(final String position) {
+		return POSITION_TO_COORDINATE.get(position); 
+	}
+	//Returns PGN notation 
+	public static int getPositionAtCooridnate(final int coordinate) {
+		return ALGEBREIC_NOTATION[coordinate];
+		
+	}
 } 

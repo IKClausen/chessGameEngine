@@ -56,8 +56,8 @@ public abstract class Player {
 			}
 		}
 		//TODO FIX THIS Keeps giving error and not printing board 
-		/* if king can't be found chess board/state is wrong 
-		throw new RuntimeException("NO KING - Board Not Valid"); */
+		//if king can't be found chess board/state is wrong 
+		throw new RuntimeException("NO KING - Board Not Valid"); 
 		
 	}
 	// implementing helper routines - and polymorphic abstract methods 

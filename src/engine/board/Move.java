@@ -11,6 +11,7 @@ public abstract class Move {
 	protected final Board board;  
 	protected final Piece movedPiece; 
 	protected final int destinationCoordinate; 
+	protected final boolean isFirstMove; 
 	
 	public static final Move NULL_MOVE = new NullMove();
 	
@@ -20,16 +21,16 @@ public abstract class Move {
 	     this.board = board; 
 	     this.movedPiece = movedPiece; 
 	     this.destinationCoordinate = destinationCoordinate;
+	     this.isFirstMove = movedPiece.isFirstMove(); 
 }   
  
-public int getCurrentCoordinate() {
-	return this.getMovedPiece().getPiecePosition();
-}
- // Move has a piece + tile coordinate and destination it gets moved to  
-public int getDestinationCoordinate() {
-	return this.destinationCoordinate; 
-			
-}
+private Move(final Board board,
+		     final int destinationCoordinate) {
+	    this.board = board; 
+	    this.destinationCoordinate = destinationCoordinate; 
+	    this.movedPiece = null; 
+	    this.isFirstMove = false; 
+} 
 
 @Override
 public int hashCode() {
@@ -38,6 +39,7 @@ public int hashCode() {
 	
 	result = prime * result + this.destinationCoordinate; 
 	result = prime * result + this.movedPiece.hashcode();
+	result = prime * result + this.movedPiece.getPiecePosition();
 	return result; 
 }
 
@@ -50,9 +52,18 @@ public boolean equals(final Object other) {
 		return false; 
 	}
 	final Move otherMove = (Move) other; 
-	return 
+	return getCurrentCoordinate() == otherMove.getCurrentCoordinate() &&
 		   getDestinationCoordinate() == otherMove.getDestinationCoordinate() &&
 		   getMovedPiece().equals(otherMove.getMovedPiece());
+}
+
+public int getCurrentCoordinate() {
+	return this.getMovedPiece().getPiecePosition();
+}
+ // Move has a piece + tile coordinate and destination it gets moved to  
+public int getDestinationCoordinate() {
+	return this.destinationCoordinate; 
+			
 }
 
 public Piece getMovedPiece() {
@@ -76,7 +87,6 @@ public Piece getAttackedPiece() {
 		final Board.Builder builder = new Builder(); 
 		
 		for (final Piece piece : this.board.currentPlayer().getActivePieces()) {
-			//TO DO hashcode and equals for pieces 
 			if(!this.movedPiece.equals(piece)) {
 				builder.setPiece(piece); 
 			}
@@ -101,6 +111,16 @@ public Piece getAttackedPiece() {
 			  final  int destinationCoordinate) {
 		super(board, movedPiece, destinationCoordinate);
 	   }
+	@Override 
+	public boolean equals(final Object other) {
+		return this == other || other instanceof MajorMove && super.equals(other); 
+	}
+	
+	@Override
+	public String toString() {
+		return movedPiece.getPieceType().toString() + BoardUtils.getPositionAtCoordinate(this.destinationCoordinate); 
+	}
+	
  }
   
   public static class AttackMove extends Move {
