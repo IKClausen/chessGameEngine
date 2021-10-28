@@ -64,7 +64,7 @@ public class TakenPiecesPanel extends JPanel {
 				} else if(takenPiece.getPieceAlliance().isBlack()) {
 					blackTakenPieces.add(takenPiece); 
 				} else {
-					throw new RunTimeException("Something went wrong"); 
+					throw new RuntimeException("Something went wrong"); 
 				}
 			}
 		}

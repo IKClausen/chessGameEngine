@@ -118,7 +118,7 @@ public Piece getAttackedPiece() {
 	
 	@Override
 	public String toString() {
-		return movedPiece.getPieceType().toString() + BoardUtils.getPositionAtCoordinate(this.destinationCoordinate); 
+		return movedPiece.getPieceType().toString() + BoardUtils.getPositionAtCooridnate(this.destinationCoordinate); 
 	}
 	
  }
